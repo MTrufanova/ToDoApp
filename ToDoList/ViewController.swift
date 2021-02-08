@@ -135,7 +135,7 @@ final class ViewController: UIViewController {
         let taskerDate = formatter.string(from: datePicker.date)
         let descriptionTask = descriptionView.text
         
-        let task = TaskModel(taskHeader: newTask, date: taskerDate, description: descriptionTask)
+        let task = TaskModel(taskHeader: newTask, date: taskerDate, description: descriptionTask, isComleted: false)
         
         delegate?.addTask(task: task)
         

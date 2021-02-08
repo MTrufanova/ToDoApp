@@ -11,6 +11,7 @@ struct TaskModel: Codable {
     let taskHeader: String
     let date: String?
     let description: String?
+    var isComleted: Bool
 }
 
 
@@ -19,3 +20,5 @@ struct TaskModel: Codable {
 protocol AddTaskDelegate {
     func addTask(task: TaskModel) 
 }
+
+

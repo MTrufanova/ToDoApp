@@ -8,7 +8,7 @@
 import UIKit
 
 
-final class TasksTableViewController: UITableViewController {
+ class TasksTableViewController: UITableViewController {
     
     
     let key = "Save"
@@ -69,7 +69,6 @@ final class TasksTableViewController: UITableViewController {
         }
         
         set {
-            
             let data = newValue.map { try? JSONEncoder().encode($0) }
             defaults.set(data, forKey: key)
         }
@@ -182,11 +181,34 @@ final class TasksTableViewController: UITableViewController {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? TaskTableViewCell {
             
-            let task = tasksArray[indexPath.row]
+           
+            
+            var task = tasksArray[indexPath.row]
             cell.refresh(task)
+            
+            cell.buttonTap = {
+                task.isComleted = !task.isComleted
+                self.tasksArray[indexPath.row] = task
+                
+                let largeConfig = UIImage.SymbolConfiguration(textStyle: .title2)
+                switch task.isComleted {
+                case true:
+                    cell.checkButton.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: largeConfig), for: .normal)
+                    cell.taskLabel.textColor = .gray
+                   
+                case false:
+                    cell.checkButton.setImage(UIImage(systemName: "circle", withConfiguration: largeConfig), for: .normal)
+                    cell.taskLabel.textColor = .black
+                    
+                }
+            }
+            
             cell.selectionStyle = .none
             
            cell.backgroundColor = .clear
+            
+            
+            
             return cell
         }
         
@@ -194,6 +216,10 @@ final class TasksTableViewController: UITableViewController {
         
         
     }
+   
+       
+    
+    
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
@@ -216,6 +242,8 @@ final class TasksTableViewController: UITableViewController {
         taskVC.task = task
         taskVC.delegate = self
         navigationController?.pushViewController(taskVC, animated: true)
+      
+     
         
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -224,7 +252,11 @@ final class TasksTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
+    
+ 
 }
+
+
 
 extension TasksTableViewController: AddTaskDelegate {
     
@@ -239,4 +271,6 @@ extension TasksTableViewController: AddTaskDelegate {
         }
     }
 }
+
+
 
