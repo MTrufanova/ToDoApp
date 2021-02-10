@@ -11,6 +11,8 @@ final class TaskTableViewCell: UITableViewCell {
     
     var buttonTap: () -> ()  = { }
     
+    // MARK: - UI
+    
     public let taskLabel: UILabel = {
         let label = UILabel()
         label.adjustsFontSizeToFitWidth = true
@@ -38,9 +40,7 @@ final class TaskTableViewCell: UITableViewCell {
         return button
     }()
     
-    @objc func didTapCheckButton() {
-       buttonTap()
-    }
+  
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -64,6 +64,11 @@ final class TaskTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    // MARK: - Methods
+    
+    @objc func didTapCheckButton() {
+       buttonTap()
+    }
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
@@ -76,7 +81,6 @@ final class TaskTableViewCell: UITableViewCell {
             dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60),
             dateLabel.heightAnchor.constraint(equalToConstant: 40),
             dateLabel.topAnchor.constraint(equalTo: topAnchor, constant: 24),
-            
           
             checkButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
               checkButton.centerYAnchor.constraint(equalTo: centerYAnchor)
@@ -91,23 +95,18 @@ final class TaskTableViewCell: UITableViewCell {
         let largeConfig = UIImage.SymbolConfiguration(textStyle: .title2)
         switch model.isComleted {
         case true:
-           // checkButton.setImage(UIImage.init(systemName: "checkmark.circle.fill"), for: .normal)
-            
+          
             checkButton.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: largeConfig), for: .normal)
             taskLabel.textColor = .gray
             
         case false:
-          //  checkButton.setImage(UIImage.init(systemName: "circle"), for: .normal)
+         
             checkButton.setImage(UIImage(systemName: "circle", withConfiguration: largeConfig), for: .normal)
             taskLabel.textColor = .black
-            
-        } 
-      
+        }
     }
     
   
-    
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

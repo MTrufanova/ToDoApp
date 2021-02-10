@@ -85,9 +85,6 @@ import UIKit
         
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: cellID)
         
-        self.tableView.backgroundView = UIImageView(image: UIImage(named: "fonView"))
-      
-        
           self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewTask))
         
       
@@ -109,7 +106,6 @@ import UIKit
      
      navigationItem.title = "All tasks"
     
-         navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.6901960784, green: 0.8862745098, blue: 1, alpha: 1)
          navigationController?.navigationBar.tintColor = .black
      }
     
@@ -127,8 +123,6 @@ import UIKit
             enterImage.widthAnchor.constraint(equalToConstant: 250),
             enterImage.heightAnchor.constraint(equalToConstant: 250),
             enterImage.bottomAnchor.constraint(equalTo: firstEnterLabel.topAnchor, constant: 0),
-          //  enterImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6),
-            
            
             firstEnterLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             firstEnterLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -136,7 +130,6 @@ import UIKit
             secondEnterLabel.topAnchor.constraint(equalTo: firstEnterLabel.bottomAnchor, constant: 8),
             secondEnterLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         
-            
             enterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             enterButton.topAnchor.constraint(equalTo: secondEnterLabel.bottomAnchor, constant: 32),
             enterButton.heightAnchor.constraint(equalToConstant: 40),
@@ -153,10 +146,8 @@ import UIKit
         
     }
     
-   
     
     // MARK: - Table view data source
-    
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -208,17 +199,13 @@ import UIKit
            cell.backgroundColor = .clear
             
             
-            
             return cell
         }
         
         return UITableViewCell()
         
-        
     }
    
-       
-    
     
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -243,19 +230,15 @@ import UIKit
         taskVC.delegate = self
         navigationController?.pushViewController(taskVC, animated: true)
       
-     
-        
     }
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             tasksArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-    
- 
 }
-
 
 
 extension TasksTableViewController: AddTaskDelegate {

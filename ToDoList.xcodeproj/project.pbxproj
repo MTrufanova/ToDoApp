@@ -41,6 +41,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		46A1BE3325D3E0CA00199F1E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				46A918C92599EC6800CD2367 /* TaskModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		46A1BE3425D3E11000199F1E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				46A918B42595E78B00CD2367 /* ViewController.swift */,
+				46A918C52595E7CC00CD2367 /* TasksTableViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		46A1BE3525D3E12E00199F1E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				46A918CC2599EDC200CD2367 /* TaskTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		46A918A42595E78B00CD2367 = {
 			isa = PBXGroup;
 			children = (
@@ -62,10 +87,9 @@
 			children = (
 				46A918B02595E78B00CD2367 /* AppDelegate.swift */,
 				46A918B22595E78B00CD2367 /* SceneDelegate.swift */,
-				46A918B42595E78B00CD2367 /* ViewController.swift */,
-				46A918C92599EC6800CD2367 /* TaskModel.swift */,
-				46A918C52595E7CC00CD2367 /* TasksTableViewController.swift */,
-				46A918CC2599EDC200CD2367 /* TaskTableViewCell.swift */,
+				46A1BE3325D3E0CA00199F1E /* Model */,
+				46A1BE3525D3E12E00199F1E /* View */,
+				46A1BE3425D3E11000199F1E /* Controllers */,
 				46A918B62595E78B00CD2367 /* Main.storyboard */,
 				46A918BE2595E78E00CD2367 /* Info.plist */,
 				46A918E125C1AACA00CD2367 /* Media.xcassets */,

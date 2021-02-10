@@ -15,12 +15,7 @@ final class ViewController: UIViewController {
     var task: TaskModel?
     
     //MARK: - UI
-    
-    private let backgroundImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "fonView")
-        return imageView
-    }()
+
     
     private let taskHeaderLabel: UILabel = {
         let label = UILabel()
@@ -91,8 +86,7 @@ final class ViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem:.save , target: self, action: #selector(saveTask))
-        
-        view.addSubview(backgroundImageView)
+        view.backgroundColor = .white
         view.addSubview(taskHeaderLabel)
         view.addSubview(taskHeaderTF)
         view.addSubview(descriptionLabel)
@@ -104,7 +98,7 @@ final class ViewController: UIViewController {
         updateSaveButton()
     }
     
-   
+   // MARK: - Methods
     
     private func updateUI() {
         
@@ -177,7 +171,7 @@ final class ViewController: UIViewController {
             datePicker.heightAnchor.constraint(equalToConstant: 40)
             
         ])
-        backgroundImageView.frame = view.frame
+      
     }
     
 }
