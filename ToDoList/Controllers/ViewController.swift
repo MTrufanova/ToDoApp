@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class ViewController: UIViewController {
     
@@ -21,20 +22,17 @@ final class ViewController: UIViewController {
         let label = UILabel()
         label.text = "Task"
         label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let taskHeaderTF: UITextField = {
         let textField = UITextField()
         textField.textColor = .black
-        textField.font = .systemFont(ofSize: 18)
-        textField.textAlignment = .center
+        textField.font = .systemFont(ofSize: 17)
         textField.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .always
         textField.becomeFirstResponder()
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.addTarget(self, action: #selector(updateSaveButton), for: .editingChanged)
         return textField
     }()
@@ -43,7 +41,6 @@ final class ViewController: UIViewController {
         let label = UILabel()
         label.text = "Description"
         label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -51,12 +48,9 @@ final class ViewController: UIViewController {
         let textView = UITextView()
         textView.layer.cornerRadius = 10
         textView.textColor = .black
-        textView.font = .systemFont(ofSize: 18)
-        textView.textAlignment = .center
-        textView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
+        textView.font = .systemFont(ofSize: 17)
+        textView.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
         textView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
-        
-        textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
     
@@ -64,18 +58,14 @@ final class ViewController: UIViewController {
         let label = UILabel()
         label.text = "Time"
         label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
    private let datePicker: UIDatePicker = {
         let picker = UIDatePicker()
-        picker.translatesAutoresizingMaskIntoConstraints = false
         picker.tintColor = UIColor.black
         picker.minimumDate = Date()
-       
         return picker
-        
     }()
     
     
@@ -139,38 +129,47 @@ final class ViewController: UIViewController {
     }
     
     private func setupLayout() {
-        NSLayoutConstraint.activate([
-            taskHeaderLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            taskHeaderLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
-            taskHeaderLabel.widthAnchor.constraint(equalToConstant: 150),
-            taskHeaderTF.heightAnchor.constraint(equalToConstant: 40),
-            
-            taskHeaderTF.topAnchor.constraint(equalTo: taskHeaderLabel.bottomAnchor, constant: 16),
-            taskHeaderTF.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            taskHeaderTF.widthAnchor.constraint(equalToConstant: view.bounds.width - 50),
-            taskHeaderTF.heightAnchor.constraint(equalToConstant: 40),
-            
-            descriptionLabel.topAnchor.constraint(equalTo: taskHeaderTF.bottomAnchor, constant: 16),
-            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
-            descriptionLabel.widthAnchor.constraint(equalToConstant: 100),
-            descriptionLabel.heightAnchor.constraint(equalToConstant: 40),
-            
-            descriptionView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
-            descriptionView.widthAnchor.constraint(equalToConstant: view.bounds.width - 50),
-            descriptionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            descriptionView.heightAnchor.constraint(equalToConstant: 150 ),
-            
-            timeLabel.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: 16),
-            timeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
-            timeLabel.widthAnchor.constraint(equalToConstant: 100),
-            timeLabel.heightAnchor.constraint(equalToConstant: 40),
-            
-            datePicker.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 16),
-            datePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            datePicker.widthAnchor.constraint(equalToConstant: view.bounds.width - 50),
-            datePicker.heightAnchor.constraint(equalToConstant: 40)
-            
-        ])
+        
+        let offset = 24
+        
+        taskHeaderLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(view.safeAreaLayoutGuide) .offset (offset)
+            make.leading.equalTo(view.safeAreaLayoutGuide) .inset(16)
+            make.width.equalTo(100)
+            make.height.equalTo(40)
+        }
+        
+        taskHeaderTF.snp.makeConstraints { (make) in
+            make.top.equalTo(taskHeaderLabel.snp.bottom) .offset(12)
+            make.height.equalTo (40)
+            make.leading.trailing.equalToSuperview() .inset(16)
+        }
+        
+        descriptionLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(taskHeaderTF.snp.bottom) .offset (offset)
+            make.leading.equalTo(view.safeAreaLayoutGuide) .inset(16)
+            make.width.equalTo (100)
+            make.height.equalTo (40)
+        }
+        
+        descriptionView.snp.makeConstraints { (make) in
+            make.top.equalTo(descriptionLabel.snp.bottom) .offset(12)
+            make.height.equalTo(150)
+            make.trailing.leading.equalToSuperview() .inset(16)
+        }
+        
+        timeLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(descriptionView.snp.bottom) .offset(offset)
+            make.leading.equalTo(view.safeAreaLayoutGuide) .inset(16)
+            make.width.equalTo(100)
+            make.height.equalTo(40)
+        }
+        
+        datePicker.snp.makeConstraints { (make) in
+            make.top.equalTo(timeLabel.snp.bottom) .offset(12)
+            make.height.equalTo(40)
+            make.trailing.leading.equalToSuperview() .inset(16)
+        }
       
     }
     

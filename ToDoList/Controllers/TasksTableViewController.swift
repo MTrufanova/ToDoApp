@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 
  class TasksTableViewController: UITableViewController {
@@ -21,7 +22,6 @@ import UIKit
         let imageView = UIImageView()
         imageView.image = UIImage(named: "human")
         imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -31,7 +31,6 @@ import UIKit
         label.text = "No tasks"
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 30)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -40,7 +39,6 @@ import UIKit
         label.text = "Click on the button to add a new task"
         label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -49,7 +47,6 @@ import UIKit
         button.setTitle("Add task", for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
         button.layer.cornerRadius = 20
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(addNewTask), for: .touchUpInside)
         return button
     }()
@@ -115,26 +112,29 @@ import UIKit
         tableView.addSubview(secondEnterLabel)
         tableView.addSubview(enterButton)
         
-        
-        NSLayoutConstraint.activate([
-            
+        enterImage.snp.makeConstraints { (make) in
          
-            enterImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            enterImage.widthAnchor.constraint(equalToConstant: 250),
-            enterImage.heightAnchor.constraint(equalToConstant: 250),
-            enterImage.bottomAnchor.constraint(equalTo: firstEnterLabel.topAnchor, constant: 0),
-           
-            firstEnterLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            firstEnterLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            secondEnterLabel.topAnchor.constraint(equalTo: firstEnterLabel.bottomAnchor, constant: 8),
-            secondEnterLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            make.width.height.equalToSuperview().multipliedBy(0.5)
+            make.centerX.equalToSuperview()
+        }
         
-            enterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            enterButton.topAnchor.constraint(equalTo: secondEnterLabel.bottomAnchor, constant: 32),
-            enterButton.heightAnchor.constraint(equalToConstant: 40),
-            enterButton.widthAnchor.constraint(equalToConstant: 100)
-        ])
+        firstEnterLabel.snp.makeConstraints { (make) in
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.top.equalTo(enterImage.snp.bottom)
+        }
+        
+        secondEnterLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(firstEnterLabel.snp.bottom) .offset(16)
+            make.centerX.equalToSuperview()
+        }
+        
+        enterButton.snp.makeConstraints { (make) in
+            make.top.equalTo(secondEnterLabel.snp.bottom) .offset(16)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(100)
+            make.height.equalTo(40)
+        }
+    
     }
     
     @objc private func addNewTask() {
@@ -160,9 +160,11 @@ import UIKit
         
         navigationItem.rightBarButtonItem?.isEnabled = false
         navigationItem.rightBarButtonItem?.tintColor = .clear
+        navigationItem.title = ""
         } else {
             navigationItem.rightBarButtonItem?.isEnabled = true
             navigationItem.rightBarButtonItem?.tintColor = .black
+            navigationItem.title = "All tasks"
         }
         return tasksArray.count
     }
@@ -195,8 +197,7 @@ import UIKit
             }
             
             cell.selectionStyle = .none
-            
-           cell.backgroundColor = .clear
+            tableView.separatorStyle = .none
             
             
             return cell
