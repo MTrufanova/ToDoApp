@@ -13,12 +13,3 @@ struct TaskModel: Codable {
     let description: String?
     var isComleted: Bool
 }
-
-
-
-
-protocol AddTaskDelegate {
-    func addTask(task: TaskModel) 
-}
-
-

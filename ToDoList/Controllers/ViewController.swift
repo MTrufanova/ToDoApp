@@ -8,9 +8,13 @@
 import UIKit
 import SnapKit
 
+protocol AddTaskDelegate: AnyObject {
+    func addTask(task: TaskModel)
+}
+
 final class ViewController: UIViewController {
     
-    var delegate: AddTaskDelegate?
+   weak var delegate: AddTaskDelegate?
     let localID = Locale.preferredLanguages.first
     
     var task: TaskModel?
